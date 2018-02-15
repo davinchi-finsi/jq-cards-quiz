@@ -48,7 +48,14 @@ export class CardsQuizGame{
      * Active card
      */
     protected currentCard:CardsQuizCardRegistry;
+    /**
+     * Instance of the jq quiz widget
+     */
     protected quizInstance:any;
+    /**
+     * Flag to control if a card is in transition
+     */
+    protected isCardInTransition:boolean;
     /**
      * Disable the widget
      */
@@ -74,10 +81,11 @@ export class CardsQuizGame{
      * @param questionIdOrIndex     Id or index of the question to activate. If null, the current card will be deactivated
      */
     activateCard(questionIdOrIndex:string|number){
-        if(!this.options.disabled) {
+        if(!this.options.disabled && !this.isCardInTransition) {
             if (questionIdOrIndex != undefined) {
                 let card = this.cardsRegistry[questionIdOrIndex];
                 if (card) {
+                    this.isCardInTransition = true;
                     if (this.currentCard != undefined && this.currentCard != card) {
                         this.currentCard.element.removeClass(this.options.classes.cardActive);
                         if (this.currentCard.answersIds == undefined || this.currentCard.answersIds.length == 0) {
@@ -93,10 +101,13 @@ export class CardsQuizGame{
                         } else {
                             this.quizInstance.goTo(questionIdOrIndex);
                         }
+                    }else{
+                        this.isCardInTransition = false;
                     }
                 }
             } else {
                 if (this.currentCard) {
+                    this.isCardInTransition = true;
                     this.quizInstance.goTo(null);
                     this.currentCard.element.removeClass(this.options.classes.cardActive);
                     this.currentCard.unflip();
@@ -248,7 +259,7 @@ export class CardsQuizGame{
      * 
      */
     protected _onCardClick(e:Event){
-        if(!this.options.disabled) {
+        if(!this.options.disabled && !this.isCardInTransition) {
             const target = $(e.currentTarget),
                 question = target.attr(this.options.questionAttribute);
             this.activateCard(question);
@@ -269,8 +280,12 @@ export class CardsQuizGame{
         this.quiz.on($.ui.jqQuiz.prototype.ON_OPTION_CHANGE+"."+this.options.namespace,this._onQuizChange.bind(this));
         //@ts-ignore
         this.quiz.on($.ui.jqQuiz.prototype.ON_END+"."+this.options.namespace,this._onQuizEnd.bind(this));
+        //@ts-ignore
+        this.quiz.on($.ui.jqQuiz.prototype.ON_QUESTION_SHOW+"."+this.options.namespace,this._onQuestionShown.bind(this));
     }
-
+    protected _onQuestionShown(){
+        this.isCardInTransition = false;
+    }
     /**
      * Invoked when a card is flipped
      * @see http://nnattawat.github.io/flip/#events
@@ -286,6 +301,7 @@ export class CardsQuizGame{
             this.quizInstance.goTo(questionIdOrIndex);
         }
         this.element.triggerHandler(CardsQuizEvents.onCardFlip, [<CardsQuizCardFlipEvent>{instance: this, card: card}]);
+        //this.isCardInTransition = false;
         //go to card for card
     }
     /**
