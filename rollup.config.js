@@ -19,7 +19,7 @@ module.exports= [
         input: src,
         output: {
             file: `dist/${name}.js`,
-            name:name,
+            name:packageName,
             format: 'umd',
             globals:globals
         },
@@ -38,7 +38,7 @@ module.exports= [
         input: src,
         output: {
             file: `dist/${name}.min.js`,
-            name:name,
+            name:packageName,
             format: 'umd',
             globals:globals
         },

@@ -6,7 +6,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('flip')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'flip'], factory) :
-	(factory((global.$ = global.$ || {}, global.$['cards-quiz'] = {})));
+	(factory((global.jqCardsQuiz = {})));
 }(this, (function (exports) { 'use strict';
 
 /**
