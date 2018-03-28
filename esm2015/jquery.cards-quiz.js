@@ -1,5 +1,5 @@
 /**
- * @license jq-cards-quiz v1.0.1
+ * @license jq-cards-quiz v1.0.2
  * (c) 2018 Finsi, Inc.
  */
 
@@ -115,7 +115,6 @@ class CardsQuizCardRegistry {
 /**
  * @module jqCardsQuiz
  */
-/** */
 /**
  * Cards quiz game
  */
