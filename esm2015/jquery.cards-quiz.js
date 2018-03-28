@@ -1,5 +1,5 @@
 /**
- * @license jq-cards-quiz v1.0.0
+ * @license jq-cards-quiz v1.0.1
  * (c) 2018 Finsi, Inc.
  */
 
@@ -411,7 +411,7 @@ if (Object.hasOwnProperty("getOwnPropertyDescriptors")) {
     $.widget("ui.cardsQuiz", proto);
 }
 else {
-    $.widget("ui.cardsQuiz", CardsQuizGame);
+    $.widget("ui.cardsQuiz", CardsQuizGame.prototype);
 }
 
 /**

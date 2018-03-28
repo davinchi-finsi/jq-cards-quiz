@@ -1,6 +1,6 @@
 {
   "name": "jq-cards-quiz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A jquery plugin to create quizs with cards",
   "main": "dist/jquery.cards-quiz.js",
   "jsnext:main": "esm2015/jquery.cards-quiz.js.js",
