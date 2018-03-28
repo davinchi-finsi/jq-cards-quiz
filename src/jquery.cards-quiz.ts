@@ -14,5 +14,5 @@ if(Object.hasOwnProperty("getOwnPropertyDescriptors")){
     }
     $.widget("ui.cardsQuiz", proto);
 }else {
-    $.widget("ui.cardsQuiz", CardsQuizGame);
+    $.widget("ui.cardsQuiz", CardsQuizGame.prototype);
 }
